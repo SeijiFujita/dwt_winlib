@@ -161,6 +161,7 @@ public class CBanner : Composite {
 		double a1 = 3 * (x1 - x0);
 		double a2 = 3 * (x0 + x2 - 2 * x1);
 		double a3 = x3 - x0 + 3 * x1 - 3 * x2;
+		
 		double b0 = y0;
 		double b1 = 3 * (y1 - y0);
 		double b2 = 3 * (y0 + y2 - 2 * y1);
@@ -168,13 +169,18 @@ public class CBanner : Composite {
 
 		int[] polygon = new int[2 * count + 2];
 		for (int i = 0; i <= count; i++) {
-			double t = cast(double) i / cast(double) count;
+			// 2017-08-18 Seiji-Fujita
+			// dmd -m64 -O -inline -release causes dmd compiler error on the following lines
+			// Internal error: backend\cgcod.c 1841
+			// Change line 'double t = ...' to 'int t = ..'
+			// double t = cast(double) i / cast(double) count;
+			int t = i / count;
 			polygon[2 * i] = cast(int)(a0 + a1 * t + a2 * t * t + a3 * t * t * t);
 			polygon[2 * i + 1] = cast(int)(b0 + b1 * t + b2 * t * t + b3 * t * t * t);
 		}
 		return polygon;
 	}
-
+	
 	static int checkStyle(int style) {
 		return SWT.NONE;
 	}

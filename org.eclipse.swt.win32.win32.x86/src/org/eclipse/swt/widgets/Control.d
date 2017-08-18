@@ -4634,7 +4634,7 @@ public abstract class Control : Widget, Drawable {
 
 	LRESULT WM_MEASUREITEM(WPARAM wParam, LPARAM lParam) {
 		MEASUREITEMSTRUCT* struct_ = cast(MEASUREITEMSTRUCT*) lParam;
-		;
+		// ;
 		if (struct_.CtlType is OS.ODT_MENU) {
 			MenuItem item = display.getMenuItem(struct_.itemID);
 			if (item is null)

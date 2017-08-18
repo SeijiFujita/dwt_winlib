@@ -107,7 +107,7 @@ public final class Point : SerializableCompatibility {
  */
 	override public String toString() {
 		return Format("Point {{{}, {}}", x, y);
-		; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		// ; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
 
 }

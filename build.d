@@ -1,8 +1,8 @@
 //
 // build dwtlib
 //
-// dmd.2.072.2
-//
+// dmd.2.075.1
+// 
 // base\src\java\lang\all.d:3
 // // pragma( lib, "dwt-base.lib" );
 //
@@ -37,13 +37,13 @@ BldInfo[] buildTabls = [
 	//----------------------------------------------------------------
 	// 32bit omf debug lib, -g -m32 -lib 
 	BldInfo("dwt_w32x86_debug.lib",
-		"-g -m32 -lib -Ibase\\src -Jorg.eclipse.swt.win32.win32.x86\\res",
+		"-m32 -lib -g -Ibase\\src -Jorg.eclipse.swt.win32.win32.x86\\res",
 		["base\\src", "org.eclipse.swt.win32.win32.x86\\src\\org\\eclipse\\swt"],
 		"lib"),
 	//----------------------------------------------------------------
 	// 32bit omf optimize lib, -O -release -inline -boundscheck=off -m32 -lib
 	BldInfo("dwt_w32x86_optimize.lib",
-		"-O -release -inline -boundscheck=off -m32 -lib -Ibase\\src -Jorg.eclipse.swt.win32.win32.x86\\res",
+		"-m32 -lib -O -release -inline -boundscheck=off -Ibase\\src -Jorg.eclipse.swt.win32.win32.x86\\res",
 		["base\\src", "org.eclipse.swt.win32.win32.x86\\src\\org\\eclipse\\swt"],
 		"lib"),
 	//----------------------------------------------------------------
@@ -55,13 +55,13 @@ BldInfo[] buildTabls = [
 	//----------------------------------------------------------------
 	// 64bit omf debug lib, -g -m64 -lib 
 	BldInfo("dwt_w64x86_debug.lib",
-		"-g -m64 -lib -Ibase\\src -Jorg.eclipse.swt.win32.win32.x86\\res",
+		"-m64 -lib -g -Ibase\\src -Jorg.eclipse.swt.win32.win32.x86\\res",
 		["base\\src", "org.eclipse.swt.win32.win32.x86\\src\\org\\eclipse\\swt"],
 		"lib"),
 	//----------------------------------------------------------------
 	// 64bit omf optimize lib, -O -release -inline -boundscheck=off -m64 -lib
 	BldInfo("dwt_w64x86_optimize.lib",
-		"-O -release -inline -boundscheck=off -m64 -lib -Ibase\\src -Jorg.eclipse.swt.win32.win32.x86\\res",
+		"-m64 -lib -O -release -inline -boundscheck=off -Ibase\\src -Jorg.eclipse.swt.win32.win32.x86\\res",
 		["base\\src", "org.eclipse.swt.win32.win32.x86\\src\\org\\eclipse\\swt"],
 		"lib"),
 ];
@@ -128,7 +128,7 @@ class Build
 			}
 		} else {
 			if (exec(command, null) != 0) {
-				writeln("dmd failed.");
+				writeln("Failed: ", command);
 			}
 		}
 	}
@@ -143,6 +143,7 @@ class Build
 		if (makeRespons()) {
 			// execute dmd
 			dmd();
+			// remove responsFile
 			std.file.remove(responsName);
 		}
 	}
@@ -203,10 +204,10 @@ string[] scanDfiles(string dir, bool recursive = true) {
 //---------------------------------------------------------------------------
 /// show file
 /// void cat(string file)
-void cat(string file) {
+void fcat(string file) {
 	if (file.exists()) {
-		
-		writeln(file.read());
+		stdout.write(cast(string) file.read());
+		//writeln(file.read());
 	}
 }
 /// exec command
@@ -219,8 +220,8 @@ int exec(string command, string cwd) {
 		if (logFileName.getSize() == 0) {
 			std.file.remove(logFileName);
 		} else {
-		//	cat(logFileName);
-			writeln("logfile has been made, please look at it. \n", logFileName ~ ": ");
+			fcat(logFileName);
+			//writeln("logfile has been made, please look at it. \n", logFileName ~ ": ");
 		}
 	}
 	auto pid = spawnShell(command, std.stdio.stdin, std.stdio.stdout, logFile, null, Config.none, cwd);

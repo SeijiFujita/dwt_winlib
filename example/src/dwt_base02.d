@@ -60,27 +60,27 @@ class MainForm : WindowManager
 		createText();
 	}
 	void putsAppend(SelectionEvent e) {
-version(none) {
+//version(none) {
 		import std.datetime;
 		StopWatch sw = StopWatch(AutoStart.yes);
-		foreach (i ; 0 .. 1000) {
+		foreach (i ; 0 .. 500) {
 			outText.append(format("%d:ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890\n", i));
 		}
 		outText.append(format("#---- %s ms ----", sw.peek().msecs));
-}
+//}
 	}
 	void putsSendMessage(SelectionEvent e) {
-version(none) {
+//version(none) {
 		import std.datetime;
 		StopWatch sw = StopWatch(AutoStart.yes);
 		int length = OS.GetWindowTextLength(outText.handle);
 		OS.SendMessage(outText.handle, OS.EM_SETSEL, length, length);
-		foreach (i ; 0 .. 1000) {
+		foreach (i ; 0 .. 500) {
 			string s = format("%d:ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890\r\n", i);
 			OS.SendMessage(outText.handle, OS.EM_REPLACESEL, 0, cast(void*)StrToTCHARz(s));
 		}
 		outText.append(format("#---- %s ms ----", sw.peek().msecs));
-}
+//}
 	}
 	Text outText;
 	void createText() {

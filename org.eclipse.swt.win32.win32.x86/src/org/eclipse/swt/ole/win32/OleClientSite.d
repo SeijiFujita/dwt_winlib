@@ -659,7 +659,7 @@ public class OleClientSite : Composite {
 		LPCTSTR buffer = null;
 		if (clientName !is null) {
 			buffer = StrToWCHARz(clientName);
-			;
+			// ;
 		}
 		if (COM.CLSIDFromProgID(buffer, guid) !is COM.S_OK) {
 			HRESULT result = COM.CLSIDFromString(buffer, guid);

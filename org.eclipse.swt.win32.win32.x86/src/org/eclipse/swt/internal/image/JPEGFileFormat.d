@@ -1737,11 +1737,10 @@ final class JPEGFileFormat : FileFormat {
 			}
 			int marker = jpegSegment.getSegmentMarker();
 			switch (marker) {
-			case SOI: // there should only be one SOI per file
-				SWT.error(SWT.ERROR_INVALID_IMAGE);
-				//	goto case;
 			case EOI:
 			case SOS:
+			case SOI: // there should only be one SOI per file
+				SWT.error(SWT.ERROR_INVALID_IMAGE);
 				return jpegSegment;
 			case DQT:
 				getDQT();
@@ -1766,6 +1765,7 @@ final class JPEGFileFormat : FileFormat {
 				break;
 			}
 		}
+		
 	}
 
 	void quantizeData(int[] dataUnit, int iComp) {
