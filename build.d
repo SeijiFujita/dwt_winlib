@@ -91,7 +91,7 @@ class Build
 			}
 		}
 		dmdFlags   ~= " ";
-		//dmdFlags   ~= " -wi ";
+		// dmdFlags   ~= " -wi ";
 		dmdFlags   ~= b.dmd_flags;
 		buildPath   = b.sourcePath;
 		outputPath  = b.outputPath ~ dirSeparator ~ b.base_name;
