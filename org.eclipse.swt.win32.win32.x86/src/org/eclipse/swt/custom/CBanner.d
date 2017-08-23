@@ -175,8 +175,8 @@ public class CBanner : Composite {
 			// Change line 'double t = ...' to 'int t = ..'
 			// double t = cast(double) i / cast(double) count;
 			int t = i / count;
-			polygon[2 * i] = cast(int)(a0 + a1 * t + a2 * t * t + a3 * t * t * t);
-			polygon[2 * i + 1] = cast(int)(b0 + b1 * t + b2 * t * t + b3 * t * t * t);
+			polygon[2 * i] = cast(int)(a0 + a1*t + a2*t*t + a3*t*t*t);
+			polygon[2 * i + 1] = cast(int)(b0 + b1*t + b2*t*t + b3*t*t*t);
 		}
 		return polygon;
 	}
