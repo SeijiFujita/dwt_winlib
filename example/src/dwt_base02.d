@@ -45,43 +45,19 @@ class MainForm : WindowManager
 		shell.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		// container Composite
-		Composite container = createComposit(2, GridData.FILL_HORIZONTAL);
-
-		Button AppendBtn = createButton(container, "Append");
-		Button SendMessageBtn = createButton(container, "SendMessage");
+		// Composite container = createComposit(2, GridData.FILL_HORIZONTAL);
+		// Button testBtn = createButton(container, "Test");
+		Button testBtn = createButton(shell, "Test");
 		
-		AppendBtn.addSelectionListener(
+		testBtn.addSelectionListener(
 			dgSelectionListener(SelectionListener.SELECTION, &putsAppend)
 		);
-		SendMessageBtn.addSelectionListener(
-			dgSelectionListener(SelectionListener.SELECTION, &putsSendMessage)
-		);
-		
 		createText();
 	}
 	void putsAppend(SelectionEvent e) {
-//version(none) {
-		import std.datetime;
-		StopWatch sw = StopWatch(AutoStart.yes);
-		foreach (i ; 0 .. 500) {
-			outText.append(format("%d:ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890\n", i));
-		}
-		outText.append(format("#---- %s ms ----", sw.peek().msecs));
-//}
+		outText.append(buildVersion() ~ "\n");
 	}
-	void putsSendMessage(SelectionEvent e) {
-//version(none) {
-		import std.datetime;
-		StopWatch sw = StopWatch(AutoStart.yes);
-		int length = OS.GetWindowTextLength(outText.handle);
-		OS.SendMessage(outText.handle, OS.EM_SETSEL, length, length);
-		foreach (i ; 0 .. 500) {
-			string s = format("%d:ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890\r\n", i);
-			OS.SendMessage(outText.handle, OS.EM_REPLACESEL, 0, cast(void*)StrToTCHARz(s));
-		}
-		outText.append(format("#---- %s ms ----", sw.peek().msecs));
-//}
-	}
+	
 	Text outText;
 	void createText() {
 		outText = new Text(shell, SWT.MULTI | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
